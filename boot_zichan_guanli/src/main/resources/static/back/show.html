@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>资产管理系统 | Index</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet" />
+    <link href="../css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet" />
+    <link href="../css/animate.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/index.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+<div id="page-wrapper" class="gray-bg">
+
+    <div class="row wrapper wrapper-content">
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>备份模版</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>选择</h5>
+                </div>
+                <div class="ibox-content">
+
+
+                    <div class="form-group">
+                        <label>ss select</label>
+                        <select class="chosen-select">
+                            <option value>--- 请选择 ---</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Aland Islands">Aland Islands</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-noraml">xx select</label>
+                        <select data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;">
+                            <option value="">Select</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Aland Islands">Aland Islands</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                        </select>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>tree</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="col-lg-4">
+                        <div id="json-tree1"></div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="json-tree2"></div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="json-tree3"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>分页插件</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <form role="form" class="tt-form-all-inline pull-right">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-left"></i></button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-left"></i></button>
+                            <button type="button" class="btn btn-white">1</button>
+                            <button type="button" class="btn btn-primary" disabled>2</button>
+                            <button type="button" class="btn btn-white">3</button>
+                            <button type="button" class="btn btn-white">4</button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-right"></i> </button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-right"></i> </button>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" style="width: 40px" />
+                            <span class="input-group-addon">/80</span>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary">Go!</button>
+                        </span>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="../js/main/jquery-2.1.1.js"></script>
+<script src="../js/main/bootstrap.min.js}"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script src="../js/main/vue.js}"></script>
+<script src="../js/main/vue-router.js}"></script>
+<script src="../js/main/inspinia.js}"></script>
+
+<!-- plugins -->
+<script src="../js/plugins/pace/pace.min.js"></script>
+<script src="../js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="../js/plugins/toastr/toastr.min.js"></script>
+<script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../js/plugins/chosen/chosen.jquery.js"></script>
+
+<!-- Custom javascript -->
+<script src="../js/md5.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/web.js"></script>
+<script src="../js/server.js"></script>
+<script src="../js/menu.js"></script>
+<script src="../js/component.js"></script>
+<script src="../js/router.js"></script>
+<script src="../js/store.js"></script>
+<script src="../js/index.js"></script>
+
+
+
+<!-- chosen -->
+<script>
+    $('.chosen-select').chosen({width: "100%"});
+</script>
+<!-- tree -->
+<script>
+    $(document).ready(function(){
+
+        $('#json-tree1').jstree({
+            'core' : {
+                'data' : [
+                    'Empty Folder',
+                    {
+                        'text': 'Resources',
+                        'state': {
+                            'opened': true
+                        },
+                        'children': [
+                            {
+                                'text': 'js',
+                                'children': [
+                                    {
+                                        'text': 'jquery.min.js', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'jsTree.min.js', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'custom.min.js', 'icon': 'none'
+                                    }
+                                ],
+                                'state': {
+                                    'opened': true
+                                }
+                            },
+                            {
+                                'text': 'html',
+                                'children': [
+                                    {
+                                        'text': 'footer.html', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'sidebar.html', 'icon': 'none'
+                                    }
+                                ],
+                                'state': {
+                                    'opened': true,
+                                    'selected' :true
+                                }
+                            }
+                        ]
+                    },
+                    'Fonts',
+                    'Images',
+                    'Scripts',
+                    'Templates',
+                ]
+            },
+            "plugins" : [ "checkbox" ]
+        });
+
+        $('#json-tree2').jstree({
+            'core' : {
+                'data' :[
+                    { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
+                    { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                    { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
+                    { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                    { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
+                ]
+            },
+            "plugins" : [ "checkbox" ]
+        });
+
+        $('#json-tree3').jstree({
+            'core' : {
+                'data' :[
+                    { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
+                    { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                    { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
+                    { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                    { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
+                ]
+            }
+        });
+
+    });
+</script>
+
+
+</body>
+</html>

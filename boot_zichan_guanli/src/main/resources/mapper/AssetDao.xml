@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.AssetDao">
+
+    <insert id="add">
+        INSERT INTO assets_item(uuid, customs_id, name, price, assets_type_id, point_id)
+        VALUES (#{uuid},#{customsId},#{name},#{price},#{assetsTypeId},#{pointId})
+    </insert>
+
+    <update id="update">
+        UPDATE assets_item
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM assets_item WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="assetsItemConditions">
+        <if test="id != null">
+            AND ${alias}.id = #{id}
+        </if>
+        <if test="uuid != null and uuid != ''">
+            AND ${alias}.uuid = #{uuid}
+        </if>
+        <if test="customsId != null and customsId != ''">
+            AND ${alias}.customs_id = #{customsId}
+        </if>
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="status != null">
+            AND ${alias}.status = #{status}
+        </if>
+        <if test="assetsTypeId != null">
+            AND ${alias}.assets_type_id = #{assetsTypeId}
+        </if>
+        <if test="pointId != null">
+            AND ${alias}.point_id = #{pointId}
+        </if>
+        <if test="pointIds != null">
+            AND ${alias}.point_id IN
+            <foreach collection="pointIds" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Asset">
+        SELECT
+        ai.*,
+        sd.value statusName
+        FROM assets_item ai
+        LEFT JOIN system_dictionary sd ON
+        (sd.`key` = ai.status AND sd.`table` = 'assets_item' AND sd.`column` = 'status')
+        <where>
+            <include refid="assetsItemConditions">
+                <property name="alias" value="ai"/>
+            </include>
+        </where>
+        ORDER BY ai.create_time DESC
+        <if test="offset != 0">
+            LIMIT #{begin},#{offset}
+        </if>
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM assets_item ai
+        <where>
+            <include refid="assetsItemConditions">
+                <property name="alias" value="ai"/>
+            </include>
+        </where>
+    </select>
+
+    <update id="updateAssetStatus">
+        UPDATE assets_item SET status = #{status}
+        WHERE uuid = #{uuid}
+    </update>
+
+    <update id="updateToNewPoint">
+        UPDATE assets_item SET point_id = #{to}
+        WHERE point_id = #{from}
+    </update>
+
+</mapper>

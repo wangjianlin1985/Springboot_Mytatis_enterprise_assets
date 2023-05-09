@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>资产管理系统 | Index</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/jsTree/style.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/dualListbox/bootstrap-duallistbox.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/select2/select2.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+<div id="wrapper">
+
+    <script th:inline="javascript">
+        //同步session数据
+        var baseUrl = [[${#httpServletRequest.getContextPath()}]];
+        var sessionUser = [[${session.user}]];
+        var sessionPermission = [[${session.permission}]];
+        var sessionRole = [[${session.role}]];
+    </script>
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+
+                <!-- 菜单用户 -->
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs"> <strong class="font-bold">{{user.name}}</strong></span>
+                                <span class="text-muted text-xs block">{{user.description}}<b class="caret"></b></span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a v-on:click="showMoreInfo">详情</a></li>
+                            <li class="divider"></li>
+                            <li><a v-on:click="logout">退出</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        EA
+                    </div>
+                </li>
+
+                <!-- 菜单 -->
+                <!--<li v-for="n in menu" v-bind:class="{'active':n.isActive}">
+
+                    &lt;!&ndash; 一级菜单url为空 &ndash;&gt;
+                    <a v-if="n.url == null">
+                        <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
+                        <span class="nav-label">{{n.name}}</span>
+                        <span v-if="n.list != null" class="fa arrow"></span>
+                    </a>
+
+                    &lt;!&ndash; 一级菜单url不为空 &ndash;&gt;
+                    <router-link v-if="n.url != null" v-bind:to="n.url">
+                        <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
+                        <span class="nav-label">{{n.name}}</span>
+                        <span v-if="n.list != null" class="fa arrow"></span>
+                    </router-link>
+
+                    &lt;!&ndash; 二级菜单 &ndash;&gt;
+                    <ul v-if="n.list != null" class="nav nav-second-level collapse">
+                        <li v-for="item in n.list" v-bind:class="{'active':item.isActive}">
+                            <router-link v-bind:to="item.url">
+                                <i v-if="item.icon != null" class="fa" v-bind:class="[item.icon]"></i>{{item.name}}
+                            </router-link>
+                        </li>
+                    </ul>
+
+                </li>-->
+                <li v-for="n in menu" v-bind:class="{'active':n.isActive}">
+                    <tt-menu-root :data="n"></tt-menu-root>
+                    <tt-menu-second :data="n.list"></tt-menu-second>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- 导航条 -->
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary"><i class="fa fa-bars"></i> </a>
+                    <!--<form role="search" class="navbar-form-custom" method="post" action="#">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" />
+                        </div>
+                    </form>-->
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a v-on:click="logout">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                    <li>
+                        <a class="right-sidebar-toggle">
+                            <i class="fa fa-tasks"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 内容 -->
+        <router-view></router-view>
+
+
+        <!-- 尾部 -->
+        <div class="footer">
+            <div class="pull-right">
+                <!--10GB of <strong>250GB</strong>--> Free Forever.
+            </div>
+            <div>
+            </div>
+        </div>
+
+
+        <div id="right-sidebar" class="animated">
+            <div class="sidebar-container">
+
+                <ul class="nav nav-tabs navs-3">
+
+                    <!--<li class="active"><a data-toggle="tab" href="#tab-1">
+                        Notes
+                    </a></li>-->
+                    <li class="active"><a data-toggle="tab" href="#tab-1">
+                        <i class="fa fa-gear"></i>
+                    </a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="sidebar-title">
+                            <h3><i class="fa fa-gears"></i> 网点设置</h3>
+                            <small><i class="fa fa-tim"></i> 设置您管理的网点</small>
+                        </div>
+                        <div id="sidebar-point-tree"></div>
+                        <!--<div class="setings-item"><span>Show notifications</span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example" />
+                                    <label class="onoffswitch-label" for="example">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- 个人信息 -->
+    <tt-modal id="user-more-info" title="我的信息">
+        <form role="form" class="validation">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <div><p class="form-control-static">{{user.id}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <div><p class="form-control-static">{{user.name}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>角色</label>
+                        <div><p class="form-control-static">{{user.role.name}}</p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>网点</label>
+                        <div><p class="form-control-static">{{user.point.name}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <div><p class="form-control-static">{{user.description}}</p></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </tt-modal>
+
+</div>
+
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<!-- Mainly scripts -->
+<script th:src="@{/js/main/jquery-2.1.1.js}"></script>
+<!--<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;}</script>-->
+<script th:src="@{/js/main/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/js/main/vue.js}"></script>
+<script th:src="@{/js/main/vue-router.js}"></script>
+<script th:src="@{/js/main/inspinia.js}"></script>
+
+<!-- plugins -->
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+<script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/js/plugins/jsTree/jstree.min.js}"></script>
+<script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+<script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/plugins/chartJs/Chart.min.js}"></script>
+<script th:src="@{/js/plugins/qrcode/jquery.qrcode.min.js}"></script>
+<script th:src="@{/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js}"></script>
+<script th:src="@{/js/plugins/select2/select2.full.min.js}"></script>
+
+<!-- Custom javascript -->
+<script th:src="@{/js/shiro.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/md5.js}"></script>
+<script th:src="@{/js/common.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/web.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/server.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/menu.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/component.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/router.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/store.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+<script th:src="@{/js/index.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+
+<script>if (window.module) module = window.module;</script>
+
+
+</body>
+
+</html>

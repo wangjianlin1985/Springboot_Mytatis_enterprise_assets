@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.UserDao">
+
+    <select id="getUserById" resultType="User">
+        SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.id = #{id}
+    </select>
+
+    <select id="login" resultType="User">
+        SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.name = #{name} AND au.password = #{password}
+    </select>
+
+    <select id="getUserByName" resultType="User">
+        SELECT
+        au.* ,
+        ar.id "role.id",
+        ar.name "role.name",
+        ar.status "role.status"
+        FROM auth_user au
+        LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.name = #{name}
+    </select>
+
+    <sql id="userConditions">
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND ${alias}.role_id = #{roleId}
+        </if>
+        <if test="pointId != null">
+            AND ${alias}.point_id = #{pointId}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="User">
+        SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        <where>
+            <include refid="userConditions">
+                <property name="alias" value="au"/>
+            </include>
+        </where>
+        LIMIT #{begin},#{offset}
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_user au
+        LEFT JOIN auth_role ar ON au.role_id = ar.id
+        <where>
+            <include refid="userConditions">
+                <property name="alias" value="au"/>
+            </include>
+        </where>
+    </select>
+
+    <insert id="add">
+        INSERT INTO auth_user(name, password, description,role_id,point_id)
+        VALUES (#{name},#{password},#{description},#{roleId},#{pointId})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_user
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test=" description != '' and description != null ">
+                description = #{description},
+            </if>
+            <if test="roleId != null ">
+                role_id = #{roleId},
+            </if>
+            <if test="pointId != null and pointId != 0 ">
+                point_id = #{pointId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_user WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateToNewPoint">
+        UPDATE auth_user SET point_id = #{to}
+        WHERE point_id = #{from}
+    </update>
+
+    <select id="getKeyValueByName" resultType="KeyValue">
+        SELECT
+        au.id "key",
+        au.name "value"
+        FROM auth_user au
+        WHERE au.name LIKE concat('%',#{name},'%')
+    </select>
+
+</mapper>

@@ -1,0 +1,88 @@
+.tt-from-table{
+    margin-bottom: 10px;
+}
+
+.tt-table-checkbox{
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 18px;
+}
+
+.tt-table-checkbox input{
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+}
+
+.tt-table-checkbox label{
+    height: 18px;
+    min-height: 17px;
+    padding-left: 0;
+}
+
+.tt-modal-cancel {
+    margin-right: 10px;
+}
+
+.tt-row-footer {
+    margin-top: 5px;
+}
+
+/*style.css移除样式*/
+/*修改默认样式：去除模态框消失重新页面动画*/
+/*body.modal-open .wrapper-content.animated {
+  -webkit-animation: none;
+}
+body.modal-open .animated {
+  animation-fill-mode: initial;
+  z-index: inherit;
+}*/
+.checkbox-table input[type="checkbox"]:checked + label::before,
+.checkbox-table input[type="radio"]:checked + label::before {
+    background-color: #1ab394;
+    border-color: #19aa8d;
+}
+.checkbox-table input[type="checkbox"]:checked + label::after,
+.checkbox-table input[type="radio"]:checked + label::after {
+    color: #fff;
+}
+.btn-table {
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius:3px ;
+}
+
+/*全屏幕内联样式*/
+.tt-form-all-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}
+.tt-form-all-inline .form-control{display:inline-block;width:auto;vertical-align:middle}
+.tt-form-all-inline .form-control-static{display:inline-block}
+.tt-form-all-inline .input-group{display:inline-table;vertical-align:middle}
+.tt-form-all-inline .input-group .form-control,
+.tt-form-all-inline .input-group .input-group-addon,
+.tt-form-all-inline .input-group .input-group-btn{width:auto}
+.tt-form-all-inline .input-group>.form-control{width:100%}
+.tt-form-all-inline .control-label{margin-bottom:0;vertical-align:middle}
+.tt-form-all-inline .checkbox,
+.tt-form-all-inline .radio{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}
+.tt-form-all-inline .checkbox label,
+.tt-form-all-inline .radio label{padding-left:0}
+.tt-form-all-inline .checkbox input[type=checkbox],
+.tt-form-all-inline .radio input[type=radio]{position:relative;margin-left:0}
+.tt-form-all-inline .has-feedback .form-control-feedback{top:0}
+
+@media (min-width: 768px){
+    .form-inline .tt-from-input{
+        margin-right: 10px;
+    }
+
+    .form-inline div {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+}
+@media (min-width: 992px){
+}
+@media (min-width: 1200px){
+}

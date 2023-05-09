@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.RoleDao">
+
+    <insert id="add">
+        INSERT INTO auth_role(name, status)
+        VALUES (#{name},#{status})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_role
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test="status != null ">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_role WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="roleConditions">
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="status != null">
+            AND ${alias}.status = #{status}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Role">
+        SELECT
+        ar.*
+        FROM auth_role ar
+        <where>
+            <include refid="roleConditions">
+                <property name="alias" value="ar"/>
+            </include>
+        </where>
+        LIMIT #{begin},#{offset}
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_role ar
+        <where>
+            <include refid="roleConditions">
+                <property name="alias" value="ar"/>
+            </include>
+        </where>
+    </select>
+
+    <select id="getRoleMap" resultType="KeyValue">
+        SELECT
+        ar.id "key",
+        ar.name "value"
+        FROM auth_role ar
+        WHERE ar.status = 1
+    </select>
+
+    <delete id="clearPermission">
+        DELETE FROM auth_role_permission_relation WHERE role_id = #{roleId}
+    </delete>
+
+    <insert id="addPermission">
+        INSERT INTO auth_role_permission_relation(role_id, permission_id) VALUES
+        <foreach collection="permissionIds" item="item" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
+
+    <select id="getPermission" resultType="Permission">
+        SELECT
+        ap.*
+        FROM auth_role_permission_relation arpr
+        LEFT JOIN auth_permission ap ON arpr.permission_id = ap.id
+        WHERE arpr.role_id = #{roleId}
+    </select>
+
+</mapper>
